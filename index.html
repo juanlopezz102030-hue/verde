@@ -2121,11 +2121,10 @@ function getWaNumber(){
 
 
   function softGo(url, delay){
-    // Navegación INSTANTÁNEA (sin blur/overlay)
-    try{
-      // si hubiera requests "keepalive" ya disparadas, el navegador intentará completarlas
-    }catch(e){}
-    location.href = url;
+    // Navegación (sin blur/overlay). Si se pasa un delay, espera ese tiempo
+    // para que el pixel de Meta y el fetch de notify alcancen a dispararse.
+    var go = function(){ try{ location.href = url; }catch(e){} };
+    if(delay && delay > 0){ setTimeout(go, delay); } else { go(); }
   }
 
   function track(name, params){
@@ -2274,8 +2273,17 @@ function openGiftModal(){
 
   if(giftBtn){
     giftBtn.addEventListener("click", () => {
-      track("GiftOpen", { placement:"dock", label:"ReclamarRegalo" });
-      openGiftModal();
+      // Regalo DIRECTO a WhatsApp (un solo clic, sin modal)
+      const credits = pickFixedCredits();
+      const suffix = (Number.isFinite(credits) ? ` (${credits})` : "");
+      // Evento principal que optimizás en Meta
+      track("WhatsAppClick", { placement:"dock", label:"ReclamarRegalo" });
+      // Compatibilidad con el evento anterior del regalo
+      track("GiftClick", { placement:"dock", label:"ReclamarRegalo" });
+      const msg = pick(INFO_MESSAGES) + suffix;
+      notifyLead("Click WhatsApp (regalo directo)", msg);
+      // pequeño delay para que el pixel/notify alcancen a dispararse
+      softGo(waLink(msg), 300);
     }, { passive:true });
   }
 
