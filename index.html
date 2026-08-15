@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-UY">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script defer src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>CAYO — Bonus 25% en tu primera carga</title>
+<meta name="description" content="Bonus 25% en tu primera carga. Atención por WhatsApp, cajeros 24 horas y pagos inmediatos. Solo para mayores de 18 años residentes de Uruguay." />
+<link href="https://unpkg.com" rel="preconnect" crossorigin />
+<link href="https://unpkg.com" rel="dns-prefetch" />
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
-  @font-face { font-family: "Aovel Sans Rounded"; src: url("./fonts/AovelSansRounded.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
-  @font-face { font-family: "Sacrifice"; src: url("./fonts/Sacrifice.ttf") format("truetype"); font-display: swap; }
-  @font-face { font-family: "Alteix Sans"; src: url("./fonts/AlteixSans.otf") format("opentype"); font-display: swap; }
+  @font-face { font-family: "Aovel Sans Rounded"; src: url("./fonts/AovelSansRounded.subset.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: "Sacrifice"; src: url("./fonts/Sacrifice.subset.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Alteix Sans"; src: url("./fonts/AlteixSans.subset.otf") format("opentype"); font-display: swap; }
   html, body { margin: 0; padding: 0; background: #150026; }
   body { font-family: Poppins, system-ui, sans-serif; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
   a { color: #FFD24A; text-decoration: none; }
@@ -27,9 +30,18 @@
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   [data-scroller]::-webkit-scrollbar { display: none; }
   template { display: none; }
+  /* la plantilla cruda no debe verse nunca, ni antes de que corra support.js */
+  x-dc { display: none !important; }
   /* estado inicial del carrusel: de acá en más lo maneja el JS con estilos inline */
   #platformStage video[data-i="1"], #platformStage video[data-i="2"] { opacity: 0; }
   #platformStage [data-dot="1"], #platformStage [data-dot="2"] { opacity: .3; }
+  /* el punto sigue midiendo 7px; lo que crece es el area de toque */
+  #platformStage [data-dot] { position: relative; touch-action: manipulation; }
+  #platformStage [data-dot]::after { content: ""; position: absolute; left: 50%; top: 50%;
+    width: 24px; height: 24px; transform: translate(-50%, -50%); }
+  /* respuesta tactil inmediata, sin pasar por JS */
+  a[href^="https://wa.me"] { touch-action: manipulation; }
+  a[href^="https://wa.me"]:active { transform: scale(.985); }
 </style>
 <script>
 if(!window.fbq){
@@ -40,12 +52,12 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=767728059169192&amp;ev=PageView&amp;noscript=1" alt="" /></noscript>
 </helmet>
-<div style="min-height: 100%; background-color: #150026; background-image: linear-gradient(180deg, rgba(21,0,38,.42) 0%, rgba(21,0,38,.58) 34%, rgba(21,0,38,.9) 74%, #150026 96%), url('./img/fondo-casino.jpg'), radial-gradient(115% 90% at 90% -5%, #6200a6 0%, #33005e 46%, #150026 100%); background-repeat: no-repeat, no-repeat, no-repeat; background-size: 100% 178vw, 100% 178vw, 100% 100%; background-position: top center, top center, top center; color: #fff; padding-bottom: 96px">
+<div style="min-height: 100%; background-color: #150026; background-image: linear-gradient(180deg, rgba(21,0,38,.42) 0%, rgba(21,0,38,.58) 34%, rgba(21,0,38,.9) 74%, #150026 96%), url('./img/fondo-casino-780.webp'), radial-gradient(115% 90% at 90% -5%, #6200a6 0%, #33005e 46%, #150026 100%); background-repeat: no-repeat, no-repeat, no-repeat; background-size: 100% 178vw, 100% 178vw, 100% 100%; background-position: top center, top center, top center; color: #fff; padding-bottom: 96px">
 <div style="max-width: 460px; margin: 0 auto; padding: 0 16px">
 
 <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 6px">
-<img src="./logos/cayo-logo.png" alt="CAYO" style="height: 72px; width: auto; display: block; margin: -2px 0; filter: drop-shadow(0 6px 18px rgba(255,190,40,.3))" />
-<img src="./logos/uy-flag.png" alt="Uruguay" width="180" height="120" style="width: 38px; height: 26px; display: block; object-fit: cover; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3), 0 3px 10px rgba(0,0,0,.4)" />
+<img src="./logos/cayo-logo.webp" alt="CAYO" style="height: 72px; width: auto; display: block; margin: -2px 0; filter: drop-shadow(0 6px 18px rgba(255,190,40,.3))" />
+<img src="./logos/uy-flag.webp" alt="Uruguay" width="180" height="120" style="width: 38px; height: 26px; display: block; object-fit: cover; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3), 0 3px 10px rgba(0,0,0,.4)" />
 </div>
 
 <div style="padding: 18px 0 4px">
@@ -55,7 +67,7 @@ fbq('track', 'PageView');
 </div>
 
 <a href="{{ waHref }}" onClick="{{ onCta }}" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 11px; margin: 20px 0 0; min-height: 60px; padding: 14px 18px; border-radius: 16px; background: linear-gradient(180deg, #2ee06f, #1eb058); color: #04301a; font-family: 'Alteix Sans', Poppins, sans-serif; font-weight: 400; font-size: 21px; letter-spacing: .1px; animation: softPulse 2.6s ease-in-out infinite" style-active="transform: scale(.985)">
-<img src="./original/whatsapp.png" alt="" style="width: 26px; height: 26px; display: block" />
+<img src="./original/whatsapp.webp" alt="" style="width: 26px; height: 26px; display: block" />
 <span>Activar mi bonus</span>
 <span aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 40%; height: 100%; background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0)); animation: shineSweep 3s ease-in-out infinite; pointer-events: none"></span>
 </a>
@@ -80,20 +92,20 @@ fbq('track', 'PageView');
 <div style="font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #A98FD6; margin-bottom: 12px; text-align: center">Cargás y retirás con</div>
 <div style="overflow: hidden; mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%)">
 <div style="display: flex; width: max-content; animation: payMarquee 22s linear infinite">
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/brou.png" alt="BROU" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/itau.png" alt="Itaú" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/santander.png" alt="Santander" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/scotiabank.png" alt="Scotiabank" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/midinero.png" alt="MiDinero" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #0090CC; display: flex; align-items: center; justify-content: center; box-sizing: border-box; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/mercadopago.png" alt="Mercado Pago" loading="lazy" decoding="async" style="width: 34px; height: 24px; object-fit: contain; display: block; flex: none" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/prex.png" alt="Prex" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/brou.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/itau.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/santander.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/scotiabank.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/midinero.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #0090CC; display: flex; align-items: center; justify-content: center; box-sizing: border-box; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/mercadopago.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 34px; height: 24px; object-fit: contain; display: block; flex: none" /></div>
-<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/prex.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/brou.webp" alt="BROU" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/itau.webp" alt="Itaú" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/santander.webp" alt="Santander" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/scotiabank.webp" alt="Scotiabank" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/midinero.webp" alt="MiDinero" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #0090CC; display: flex; align-items: center; justify-content: center; box-sizing: border-box; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/mercadopago.webp" alt="Mercado Pago" loading="lazy" decoding="async" style="width: 34px; height: 24px; object-fit: contain; display: block; flex: none" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/prex.webp" alt="Prex" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/brou.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/itau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/santander.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/scotiabank.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/midinero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #0090CC; display: flex; align-items: center; justify-content: center; box-sizing: border-box; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/mercadopago.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 34px; height: 24px; object-fit: contain; display: block; flex: none" /></div>
+<div style="width: 46px; height: 46px; margin-right: 10px; flex: none; border-radius: 13px; overflow: hidden; background: #24003f; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.3)"><img src="./logos/prex.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
 </div>
 </div>
 </div>
@@ -102,15 +114,15 @@ fbq('track', 'PageView');
 <div style="font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #A98FD6; margin-bottom: 10px">Nuestras plataformas</div>
 <div id="platformStage" style="border-radius: 18px; overflow: hidden; background: linear-gradient(160deg, #3a0a63, #1b0130); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 14px 34px rgba(0,0,0,.4)">
 <div style="position: relative; width: 100%; aspect-ratio: 9 / 13">
-<video data-lazyvid="true" data-i="0" src="./original/bet30-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
-<video data-lazyvid="true" data-i="1" src="./original/ganamos-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
-<video data-lazyvid="true" data-i="2" src="./original/rhino-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
+<video data-lazyvid="true" data-i="0" src="./original/bet30-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
+<video data-lazyvid="true" data-i="1" src="./original/ganamos-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
+<video data-lazyvid="true" data-i="2" src="./original/rhino-preview.mp4" muted="" loop="" playsinline="" preload="none" poster="./logos/video-placeholder.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 900ms cubic-bezier(.45,0,.25,1)"></video>
 </div>
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px">
 <div id="platformName" style="font-size: 13.5px; font-weight: 800; transition: opacity 380ms ease">Bet30</div>
 <div style="display: flex; align-items: center; gap: 10px">
 <span id="platformTag" style="font-size: 11px; font-weight: 700; color: #150026; background: #FFD24A; border-radius: 999px; padding: 3px 8px; white-space: nowrap; transition: opacity 380ms ease">Casino + Deportiva</span>
-<div style="display: flex; gap: 5px">
+<div style="display: flex; gap: 17px">
 <button type="button" data-dot="0" aria-label="Bet30" onClick="{{ go0 }}" style="width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #FFD24A; transition: opacity 500ms ease"></button>
 <button type="button" data-dot="1" aria-label="Ganamos" onClick="{{ go1 }}" style="width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #FFD24A; transition: opacity 500ms ease"></button>
 <button type="button" data-dot="2" aria-label="RhinoPlay" onClick="{{ go2 }}" style="width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #FFD24A; transition: opacity 500ms ease"></button>
@@ -153,7 +165,7 @@ fbq('track', 'PageView');
 <div style="font-family: Sacrifice, Poppins, sans-serif; font-size: 26px; line-height: 1.05; color: #FFD24A">25%</div>
 </div>
 <a href="{{ waHref }}" onClick="{{ onCta }}" style="display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 50px; border-radius: 14px; background: linear-gradient(180deg, #2ee06f, #1eb058); color: #04301a; font-family: 'Alteix Sans', Poppins, sans-serif; font-weight: 400; font-size: 18px; letter-spacing: .1px" style-active="transform: scale(.985)">
-<img src="./original/whatsapp.png" alt="" style="width: 21px; height: 21px; display: block" />
+<img src="./original/whatsapp.webp" alt="" style="width: 21px; height: 21px; display: block" />
 <span>Escribir por WhatsApp</span>
 </a>
 </div>
