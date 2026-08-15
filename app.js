@@ -59,24 +59,40 @@
   // ─────────────────────────────────────────────────────────────
   // 2. Tracking. No hace preventDefault: la navegación no espera al pixel.
   // ─────────────────────────────────────────────────────────────
+  // Identificador único por clic. Es lo que permite a Meta darse cuenta de que
+  // el evento del navegador y su copia del servidor (Puerta de entrada de la
+  // API de conversiones) son el MISMO clic, y contar uno solo en lugar de dos.
+  // Sin esto, el Gateway duplica cada conversión.
+  function nuevoId() {
+    try {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    } catch (e) {}
+    return 'wa-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
   ctas.forEach((a) => {
     a.addEventListener('click', () => {
       try {
         if (!window.fbq) return;
-        // Se disparan LOS DOS. En el Administrador de eventos figuran como
-        // eventos distintos: 'Contact' lleva content_name como parámetro, y
-        // 'WhatsAppClick' es un evento propio sin parámetros. Cuál de los dos
-        // usa la campaña depende de cómo esté definida la conversión, así que
-        // se mandan ambos. No se pisan ni se duplican entre sí.
+
+        // Un ID base por clic, con sufijo distinto para cada evento.
+        // Meta deduplica cuando coinciden nombre de evento Y event_id, así que
+        // dos eventos con nombres distintos nunca se anulan entre sí.
+        const base = nuevoId();
+
+        // Se disparan LOS DOS: 'Contact' lleva content_name como parámetro y
+        // 'WhatsAppClick' es un evento propio. Cuál usa la campaña depende de
+        // cómo esté definida la conversión, así que se mandan ambos.
         window.fbq('track', 'Contact', {
           content_name: 'WhatsAppClick',
           value: 1,
           currency: 'UYU',
-        });
+        }, { eventID: base + '-contact' });
+
         window.fbq('trackCustom', 'WhatsAppClick', {
           value: 1,
           currency: 'UYU',
-        });
+        }, { eventID: base + '-wac' });
       } catch (e) {}
     });
   });
