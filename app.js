@@ -62,13 +62,21 @@
   ctas.forEach((a) => {
     a.addEventListener('click', () => {
       try {
-        if (window.fbq) {
-          window.fbq('track', 'Contact', {
-            content_name: 'WhatsAppClick',
-            value: 1,
-            currency: 'UYU',
-          });
-        }
+        if (!window.fbq) return;
+        // Se disparan LOS DOS. En el Administrador de eventos figuran como
+        // eventos distintos: 'Contact' lleva content_name como parámetro, y
+        // 'WhatsAppClick' es un evento propio sin parámetros. Cuál de los dos
+        // usa la campaña depende de cómo esté definida la conversión, así que
+        // se mandan ambos. No se pisan ni se duplican entre sí.
+        window.fbq('track', 'Contact', {
+          content_name: 'WhatsAppClick',
+          value: 1,
+          currency: 'UYU',
+        });
+        window.fbq('trackCustom', 'WhatsAppClick', {
+          value: 1,
+          currency: 'UYU',
+        });
       } catch (e) {}
     });
   });
